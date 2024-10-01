@@ -11,13 +11,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-        with:
-          node-version: 20  # Updated to use Node.js 20
-          
+        
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.12
+          python-version: '3.12'  # Specify the Python version you need
 
       - name: Install dependencies
         run: |
@@ -39,13 +37,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-        with:
-          node-version: 20  # Updated to use Node.js 20
-
-      - name: Install Node.js
+        
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20  # Updated to use Node.js 20
+          node-version: '20'  # Use Node.js version 20
 
       - name: Install JSHint
         run: npm install jshint --global
