@@ -8,11 +8,9 @@ from django.utils.timezone import now
 class CarMake(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    # Other fields as needed
-
+    
     def __str__(self):
         return self.name  # Return the name as the string representation
-
 
 class CarModel(models.Model):
     car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  # Many-to-One relationship
@@ -31,7 +29,21 @@ class CarModel(models.Model):
             MinValueValidator(2015)
         ]
     )
-    # Other fields as needed
-
+    
     def __str__(self):
         return f"{self.car_make.name} {self.name}"  # Return the car make and model as string representation
+
+class Review(models.Model):
+    car_model = models.ForeignKey(CarModel, on_delete=models.CASCADE)  # Many-to-One relationship with CarModel
+    name = models.CharField(max_length=100)  # Name of the reviewer
+    review = models.TextField()  # Review content
+    rating = models.IntegerField(
+        validators=[
+            MaxValueValidator(5),
+            MinValueValidator(1)
+        ]
+    )  # Rating out of 5
+    created_at = models.DateTimeField(default=now)  # When the review was created
+
+    def __str__(self):
+        return f"Review by {self.name} for {self.car_model.name}"  # Return a meaningful string representation
